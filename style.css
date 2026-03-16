@@ -1,13 +1,28 @@
 
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+body {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    height: 100vh;
+    background-color: #BDE4A7;
+    margin: 0;
+    padding-top: 50px; 
+    font-family: 'Chewy', cursive ;
+    letter-spacing: 2px;
+
+
+.container {
+    width: 500px; 
+    display: flex;
+    justify-content: space-between; 
+    padding: 16px;
+}
+
+
+form {
+    width: 1500px;
+    padding: 50px;
+    border: 4px solid #789CC6;
+    background-color: #f9f8a7; 
     }
-    
-    form{
-    width:300px;
-    padding:20px;
-    border:1px solid pink;
-    }
+}
