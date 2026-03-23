@@ -8,7 +8,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 //java classes import
+import org.springframework.stereotype.Component;
+//makes this a spring bean
 
+@Component
+//makes it detect chatserver as a custom bean
 public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
     private static Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
@@ -22,10 +26,8 @@ public class ChatServer extends TextWebSocketHandler {
     //runs when socket is opened
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         //protected -> accesible only by children 
-        try 
-        {
             System.out.println("Received: " + message.getPayload());
             for (WebSocketSession s: sessions) 
             {
@@ -36,16 +38,18 @@ public class ChatServer extends TextWebSocketHandler {
                 //s.sendMessage(new TextMessage(message.getPayload()));
                 //TextMessage wraps text so it can be sent
             } 
-        } catch (Exception e)
-        {
-            e.printStackTrace(); //error catch
-        }
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         sessions.remove(session);
-        System.out.println("User disconnected Total: " + sessions.size());
+        System.out.println("Disconnected! Reason: " + status.getReason());
+        System.out.println("Code: " + status.getCode());
+    }
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
+        System.out.println("ERROR OCCURRED:");
+        exception.printStackTrace();
     }
     //closes session
 }
