@@ -1,4 +1,4 @@
-package com.chatriot.chat;
+package com.chatriot.chat.controller;
 //tells java where class is 
 
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;

@@ -1,4 +1,4 @@
-package com.chatriot.chat;
+package com.chatriot.chat.controller;
 //for spring boot ^
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

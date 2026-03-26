@@ -1,5 +1,9 @@
-package com.chatriot.chat;
+package com.chatriot.chat.controller;
 //tells java where class is 
+
+package com.chatriot.chat.model;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.socket.*;
 //imports websocket classes
@@ -15,10 +19,24 @@ import org.springframework.stereotype.Component;
 //makes it detect chatserver as a custom bean
 public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
-    private static Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
+    private final Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
     //set of all connected users 
+    
+    //turns json into java objects
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    
+    private final MessageRepository messageRepository;
+
     @Override
     //overriding method from parent class (also protects from bugs yay)
+    
+
+    //constructor
+    public ChatServer(MessageRepository mR)
+    {
+        messageRepository = mR;
+    }
+
     public void afterConnectionEstablished(WebSocketSession session) {
         sessions.add(session);
         System.out.println("User connected: Total: " + sessions.size());
@@ -27,7 +45,8 @@ public class ChatServer extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        //protected -> accesible only by children 
+
+            
             System.out.println("Received: " + message.getPayload());
             for (WebSocketSession s: sessions) 
             {
@@ -43,9 +62,9 @@ public class ChatServer extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         sessions.remove(session);
-        System.out.println("Disconnected! Reason: " + status.getReason());
-        System.out.println("Code: " + status.getCode());
+        System.out.println("User left. Total: " + sessions.size() + " | Reason: " + status.getReason());
     }
+    
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) {
         System.out.println("ERROR OCCURRED:");
