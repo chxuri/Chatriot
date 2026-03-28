@@ -1,8 +1,10 @@
 package com.chatriot.chat.controller;
 //tells java where class is 
 
-package com.chatriot.chat.model;
+import com.chatriot.chat.model.ChatMessage;
+import com.chatriot.chat.repository.MessageRepository;
 
+//java library that turns json content into a java object
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.socket.*;
@@ -10,7 +12,9 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 //base class 
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+
+//need this specific array list to support websockets being multi threaded
+import java.util.concurrent.CopyOnWriteArrayList;
 //java classes import
 import org.springframework.stereotype.Component;
 //makes this a spring bean
@@ -19,24 +23,21 @@ import org.springframework.stereotype.Component;
 //makes it detect chatserver as a custom bean
 public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
-    private final Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
+    private final List<WebSocketSession> sessions = new CopyOnWriteArrayList();
     //set of all connected users 
     
     //turns json into java objects
     private final ObjectMapper objectMapper = new ObjectMapper();
     
     private final MessageRepository messageRepository;
-
-    @Override
-    //overriding method from parent class (also protects from bugs yay)
     
-
     //constructor
     public ChatServer(MessageRepository mR)
     {
         messageRepository = mR;
     }
 
+    //overriding method from parent class (FOR SAFETY CHECKING PURPOSES)
     public void afterConnectionEstablished(WebSocketSession session) {
         sessions.add(session);
         System.out.println("User connected: Total: " + sessions.size());
@@ -45,18 +46,26 @@ public class ChatServer extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        //gets json from js code
+        String payload = message.getPayload();
 
-            
-            System.out.println("Received: " + message.getPayload());
-            for (WebSocketSession s: sessions) 
+        //objectMapper.readValue(source, targetType);
+        ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage);
+
+        //saves to mongoDB
+        messageRepository.save(chatMessage); 
+
+        //System.out.println("Received: " + message.getPayload());
+        for (WebSocketSession s: sessions) 
+        {
+            //check for matching classID here later
+            if(s.isOpen())
             {
-                if(s.isOpen())
-                {
-                    s.sendMessage(new TextMessage(message.getPayload()));
-                }
-                //s.sendMessage(new TextMessage(message.getPayload()));
                 //TextMessage wraps text so it can be sent
-            } 
+                //writeValueAsString converts java object back to json
+                s.sendMessage(new TextMessage(objectMapper.writeValueAsString(chatMessage)));
+            }
+        } 
     }
 
     @Override
