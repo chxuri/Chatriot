@@ -1,3 +1,5 @@
-com/chatriot/chat/ChatServer.class
-com/chatriot/chat/ChatApplication.class
-com/chatriot/chat/WebSocketConfig.class
+com/chatriot/chat/model/ChatMessage.class
+com/chatriot/chat/controller/ChatServer.class
+com/chatriot/chat/controller/ChatApplication.class
+com/chatriot/chat/controller/WebSocketConfig.class
+com/chatriot/chat/repository/MessageRepository.class

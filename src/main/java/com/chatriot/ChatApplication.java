@@ -2,7 +2,10 @@ package com.chatriot.chat.controller;
 //for spring boot ^
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 @SpringBootApplication
+//forcing spring to link to mongo
+@EnableMongoRepositories(basePackages = "com.chatriot.chat.repository")
 public class ChatApplication {
     public static void main(String[] args) {
         SpringApplication.run(ChatApplication.class, args);

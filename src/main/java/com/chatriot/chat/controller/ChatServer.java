@@ -12,6 +12,7 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 //base class 
 import java.util.Set;
+import java.util.List;
 
 //need this specific array list to support websockets being multi threaded
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -29,6 +30,7 @@ public class ChatServer extends TextWebSocketHandler {
     //turns json into java objects
     private final ObjectMapper objectMapper = new ObjectMapper();
     
+    //final makes sure app cant start without repo to give
     private final MessageRepository messageRepository;
     
     //constructor
@@ -50,7 +52,7 @@ public class ChatServer extends TextWebSocketHandler {
         String payload = message.getPayload();
 
         //objectMapper.readValue(source, targetType);
-        ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage);
+        ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
 
         //saves to mongoDB
         messageRepository.save(chatMessage); 

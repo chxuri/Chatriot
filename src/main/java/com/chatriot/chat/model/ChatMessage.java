@@ -1,10 +1,16 @@
 //helps for future referencing
 package com.chatriot.chat.model;
 
-public class chatMessage {
+public class ChatMessage {
     private String sender;
     private String content;
     private String classId;
+
+    //default
+    public ChatMessage()
+    {
+
+    }
 
     public String getSender()
     {
