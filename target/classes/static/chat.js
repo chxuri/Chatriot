@@ -39,6 +39,7 @@ socket.onmessage = function(event) {
 */
 
 socket.addEventListener("message", function(event) {
+    //appends messages to chat box, both when sent and old messages
     console.log("inside event listener");
     const messages = document.getElementById("messages");
     const msg = document.createElement("div");

@@ -12,4 +12,7 @@ public interface MessageRepository extends MongoRepository<ChatMessage, String>
     //<ChatMessage, String> -> stores chatMessage objects with IDs that are Strings
     //finds by class period
     List<ChatMessage> findByClassId(String classId);
+    //finds the top messages by derived query methods
+    //scans name of method and parses it to make db query
+    List<ChatMessage> findTop50ByOrderByTimestampAsc();
 }

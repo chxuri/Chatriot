@@ -1,15 +1,24 @@
 //helps for future referencing
 package com.chatriot.chat.model;
+//date & time library
+import java.time.LocalDateTime;
 
 public class ChatMessage {
     private String sender;
     private String content;
     private String classId;
+    //timestamp!
+    private LocalDateTime timestamp;
 
     //default
     public ChatMessage()
     {
+        timestamp = LocalDateTime.now();
+    }
 
+    public LocalDateTime getTimestamp()
+    {
+        return timestamp;
     }
 
     public String getSender()
@@ -40,5 +49,10 @@ public class ChatMessage {
     public void setClassId(String cI)
     {
         classId = cI;
+    }
+
+    public void setTimestamp(LocalDateTime t)
+    {
+        timestamp = t;
     }
 }

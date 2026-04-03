@@ -18,14 +18,17 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 //java classes import
 import org.springframework.stereotype.Component;
-//makes this a spring bean
+//makes this a spring bean (object thats managed by spring framework)
+
+//for time stamp formatting
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Component
 //makes it detect chatserver as a custom bean
 public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
+    //set of all connected users + polymorphism in the wild
     private final List<WebSocketSession> sessions = new CopyOnWriteArrayList();
-    //set of all connected users 
     
     //turns json into java objects
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -37,12 +40,26 @@ public class ChatServer extends TextWebSocketHandler {
     public ChatServer(MessageRepository mR)
     {
         messageRepository = mR;
+        //using for timestamp formatting
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     //overriding method from parent class (FOR SAFETY CHECKING PURPOSES)
-    public void afterConnectionEstablished(WebSocketSession session) {
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        //adds user to current session
         sessions.add(session);
-        System.out.println("User connected: Total: " + sessions.size());
+        System.out.println("User connected. Total: " + sessions.size());
+        //gets last 50 messages from mongo
+        List<ChatMessage> history = messageRepository.findTop50ByOrderByTimestampAsc();
+
+        for(ChatMessage m: history)
+        {
+            //sends string bc cant send full object to websockets
+            String jsonMessage = objectMapper.writeValueAsString(m);
+            //TextMessage is a wrapper required by spring boot
+            session.sendMessage(new TextMessage(jsonMessage));
+        }
+        
     }
     //runs when socket is opened
 
