@@ -15,4 +15,6 @@ public interface MessageRepository extends MongoRepository<ChatMessage, String>
     //finds the top messages by derived query methods
     //scans name of method and parses it to make db query
     List<ChatMessage> findTop50ByOrderByTimestampAsc();
+
+    //List<ChatMessage> findByClassIdOrderByTimestampAsc(String classId);
 }

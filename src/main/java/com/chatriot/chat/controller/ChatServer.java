@@ -1,6 +1,12 @@
 package com.chatriot.chat.controller;
 //tells java where class is 
 
+//imports hash map
+import java.util.HashMap;
+
+//imports array list
+import java.util.ArrayList;
+
 import com.chatriot.chat.model.ChatMessage;
 import com.chatriot.chat.repository.MessageRepository;
 
@@ -29,6 +35,10 @@ public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
     //set of all connected users + polymorphism in the wild
     private final List<WebSocketSession> sessions = new CopyOnWriteArrayList();
+
+    private final Map<String, Classroom> classInfoMap = new HashMap<>();
+
+    private final List<Classroom> classInfo = new ArrayList<Classroom>();
     
     //turns json into java objects
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -42,6 +52,14 @@ public class ChatServer extends TextWebSocketHandler {
         messageRepository = mR;
         //using for timestamp formatting
         objectMapper.registerModule(new JavaTimeModule());
+    }
+
+    //STOPPED HERE *******//
+    //sets up the lists on startup
+    @PostConstruct
+    public void loadRooms() throws IOException {
+        File classroomFile = new File("src/main/resources/classes.json");
+        classInfo.add(objectMapper.readValue(classroomFile, Classroom.class));
     }
 
     //overriding method from parent class (FOR SAFETY CHECKING PURPOSES)

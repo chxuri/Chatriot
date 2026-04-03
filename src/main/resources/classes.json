@@ -1,0 +1,7 @@
+{
+    "classes":[
+        {"subject":"Pre-Calc", "teacher":"Grover", "period":1, "classId":"PreCalc_1"},
+        {"subject":"AP Bio", "teacher":"Wolfe", "period":3, "classId":"APBio_3"},
+        {"subject":"Art and Design", "teacher":"Kim", "period":5, "classId":"ArtAndDesign_5"}
+    ]
+}
