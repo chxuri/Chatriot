@@ -2,4 +2,5 @@
 /Users/rimma/projects/Chatriot/src/main/java/com/chatriot/chat/controller/ChatServer.java
 /Users/rimma/projects/Chatriot/src/main/java/com/chatriot/chat/controller/WebSocketConfig.java
 /Users/rimma/projects/Chatriot/src/main/java/com/chatriot/chat/model/ChatMessage.java
+/Users/rimma/projects/Chatriot/src/main/java/com/chatriot/chat/model/Classroom.java
 /Users/rimma/projects/Chatriot/src/main/java/com/chatriot/chat/repository/MessageRepository.java

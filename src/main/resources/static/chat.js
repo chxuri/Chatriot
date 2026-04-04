@@ -14,7 +14,7 @@ function sendMessage() {
     const messageText = {
         sender: "Alice",
         content: input.value,
-        classId: "PreCalc-Period1"
+        classId: "PreCalc_1"
     };
     
     //if(messageText.trim() === "") return;
@@ -26,6 +26,26 @@ function sendMessage() {
     input.value = "";
 
 };
+
+fetch("classes.json")
+    .then(response => response.json())
+    .then(data => {
+
+        const container = document.getElementById("classroom-table-info");
+
+        data.forEach(classroom => {
+            const row = `
+                <tr>
+                    <td>${classroom.subject}</td>
+                    <td>${classroom.teacher}</td>
+                    <td>${classroom.period}</td>
+                </tr>
+            `;
+            container.innerHTML += row;
+            console.log("here");
+        });
+        
+    });
 
 /*
 socket.onmessage = function(event) {

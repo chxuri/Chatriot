@@ -1,8 +1,10 @@
+package com.chatriot.chat.model;
+
 public class Classroom 
 {
     private String subject;
     private String teacher;
-    private int period;
+    private String period;
     private String classId;
 
     /*
@@ -28,7 +30,7 @@ public class Classroom
     {
         return teacher;
     }
-    public int getPeriod()
+    public String getPeriod()
     {
         return period;
     }
@@ -45,7 +47,7 @@ public class Classroom
     {
         teacher = t;
     }
-    public void setPeriod(int p)
+    public void setPeriod(String p)
     {
         period = p;
     }

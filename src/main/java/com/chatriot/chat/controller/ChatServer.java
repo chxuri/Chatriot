@@ -4,11 +4,14 @@ package com.chatriot.chat.controller;
 //imports hash map
 import java.util.HashMap;
 
+import jakarta.annotation.PostConstruct;
 //imports array list
 import java.util.ArrayList;
+import java.io.IOException;
 
 import com.chatriot.chat.model.ChatMessage;
 import com.chatriot.chat.repository.MessageRepository;
+import com.chatriot.chat.model.Classroom;
 
 //java library that turns json content into a java object
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +22,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 //base class 
 import java.util.Set;
 import java.util.List;
+import java.io.File;
+
+import java.util.*;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 //need this specific array list to support websockets being multi threaded
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -34,9 +42,11 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
     //set of all connected users + polymorphism in the wild
-    private final List<WebSocketSession> sessions = new CopyOnWriteArrayList();
+    private final List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
-    private final Map<String, Classroom> classInfoMap = new HashMap<>();
+    private final Map<String, Classroom> classInfoMap = new ConcurrentHashMap<>();
+
+    private final Map<String, List<WebSocketSession>> roomOccupants = new ConcurrentHashMap<>();
 
     private final List<Classroom> classInfo = new ArrayList<Classroom>();
     
@@ -54,12 +64,18 @@ public class ChatServer extends TextWebSocketHandler {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
-    //STOPPED HERE *******//
+
     //sets up the lists on startup
     @PostConstruct
     public void loadRooms() throws IOException {
-        File classroomFile = new File("src/main/resources/classes.json");
+        File classroomFile = new File("src/main/resources/static/classes.json");
         classInfo.add(objectMapper.readValue(classroomFile, Classroom.class));
+
+        for(Classroom c: classInfo)
+        {
+            classInfoMap.put(c.getClassId(), c);
+            roomOccupants.put(c.getClassId(), new CopyOnWriteArrayList<>());
+        }
     }
 
     //overriding method from parent class (FOR SAFETY CHECKING PURPOSES)
