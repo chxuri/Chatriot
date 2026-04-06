@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        body {
-          background-image: url('live-chat-background.jpg');
-          background-size: cover;        /* Ensures the image fills the screen */
-          background-position: center;   /* Centers the image */
-          background-repeat: no-repeat;  /* Prevents the image from tiling */
-          background-attachment: fixed;  /* (Optional) Keeps background static while scrolling */
-          height: 100vh;                 /* Ensures the body takes full viewport height */
-          margin: 0;                     /* Removes default page margins */
-        }
-      </style>
-      
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="live_chat_style.css">
@@ -20,17 +8,15 @@
 </head>
 <body>
     <div class="chat-container">
-        <h2>Live Chat</h2>
-
+        <h2 style = "font-size: 50px; color: #1b512d">Live Chat</h2>
 
         <div id="messages"></div>
         <div id="chat">
             <input id="messageInput" type="text" placeHolder="Type a message!" />
-            <button type="button" onclick="sendMessage()">Send</button>
+            <button type="button" class="button" onclick="sendMessage()">Send</button> 
         </div>
     </div>
+
     <script src="chat.js"></script>
 </body>
 </html>
-
-
