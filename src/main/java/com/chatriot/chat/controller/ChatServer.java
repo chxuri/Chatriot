@@ -1,6 +1,8 @@
 package com.chatriot.chat.controller;
 //tells java where class is 
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 //imports hash map
 import java.util.HashMap;
 
@@ -46,9 +48,10 @@ public class ChatServer extends TextWebSocketHandler {
 
     private final Map<String, Classroom> classInfoMap = new ConcurrentHashMap<>();
 
-    private final Map<String, List<WebSocketSession>> roomOccupants = new ConcurrentHashMap<>();
+    //not final bc im reassigining it later
+    private List<Classroom> classInfo = new ArrayList<Classroom>();
 
-    private final List<Classroom> classInfo = new ArrayList<Classroom>();
+    private final Map<String, List<WebSocketSession>> roomOccupants = new ConcurrentHashMap<>();
     
     //turns json into java objects
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -69,8 +72,10 @@ public class ChatServer extends TextWebSocketHandler {
     @PostConstruct
     public void loadRooms() throws IOException {
         File classroomFile = new File("src/main/resources/static/classes.json");
-        classInfo.add(objectMapper.readValue(classroomFile, Classroom.class));
-
+        //type reference portion signifies every item in json should be turned into Classroom
+        //curly brackets makes nameless class that inherits from typereference (helps preserve Classroom type in list)
+        classInfo = objectMapper.readValue(classroomFile, new TypeReference<List<Classroom>>() {} );
+        
         for(Classroom c: classInfo)
         {
             classInfoMap.put(c.getClassId(), c);

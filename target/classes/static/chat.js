@@ -39,6 +39,7 @@ fetch("classes.json")
                     <td>${classroom.subject}</td>
                     <td>${classroom.teacher}</td>
                     <td>${classroom.period}</td>
+                    <td><button type ="button">join</button></td>
                 </tr>
             `;
             container.innerHTML += row;
