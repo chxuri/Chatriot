@@ -6,6 +6,7 @@ public class Classroom
     private String teacher;
     private String period;
     private String classId;
+    private List<Integer> periods;
 
     /*
     public Classroom(String s, String t, int p, String c)
@@ -39,6 +40,11 @@ public class Classroom
         return classId;
     }
 
+    public List<Integer> getPeriods()
+    {
+        return periods;
+    }
+
     public void setSubject(String s)
     {
         subject = s;
@@ -54,6 +60,11 @@ public class Classroom
     public void setClassId(String c)
     {
         classId = c;
+    }
+
+    public void setPeriods(List<Integer> p)
+    {
+        periods = p;
     }
 
 }
