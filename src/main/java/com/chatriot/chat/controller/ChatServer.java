@@ -79,7 +79,8 @@ public class ChatServer extends TextWebSocketHandler {
     //temporary reroute to show waiting page instead of index
     public String waitingPageMode()
     {
-        return "waiting-page";
+        // forward forces spring to look in static folder
+        return "forward:/waiting-page.html";
     }
 
     //sets up the lists on startup
