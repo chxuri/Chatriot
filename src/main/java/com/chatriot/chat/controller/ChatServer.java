@@ -27,7 +27,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 //base class 
 import java.util.Set;
 import java.util.List;
-import java.io.File;
+
 
 import java.util.*;
 
@@ -76,10 +76,9 @@ public class ChatServer extends TextWebSocketHandler {
     public void loadRooms() throws IOException {
         // only way this works with app.jar
         InputStream is = getClass().getClassLoader().getResourceAsStream("static/classes.json");
-        File classroomFile = new File(is);
         //type reference portion signifies every item in json should be turned into Classroom
         //curly brackets makes nameless class that inherits from typereference (helps preserve Classroom type in list)
-        classInfo = objectMapper.readValue(classroomFile, new TypeReference<List<Classroom>>() {} );
+        classInfo = objectMapper.readValue(is, new TypeReference<List<Classroom>>() {} );
         
         for(Classroom c: classInfo)
         {
