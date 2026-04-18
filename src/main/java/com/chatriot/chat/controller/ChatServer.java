@@ -31,6 +31,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.Set;
 import java.util.List;
 
+// to import @controller
+import org.springframework.stereotype.Controller;
 
 import java.util.*;
 
