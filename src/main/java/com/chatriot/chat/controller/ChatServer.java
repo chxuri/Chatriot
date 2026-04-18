@@ -70,6 +70,12 @@ public class ChatServer extends TextWebSocketHandler {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
+    @GetMapping("/")
+    //temporary reroute to show waiting page instead of index
+    public String waitingPageMode()
+    {
+        return "waiting-page";
+    }
 
     //sets up the lists on startup
     @PostConstruct
