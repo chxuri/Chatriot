@@ -1,3 +1,5 @@
+import java.util.List;
+
 package com.chatriot.chat.model;
 
 public class Classroom 
