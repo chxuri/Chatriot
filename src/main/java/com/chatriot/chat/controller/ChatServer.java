@@ -14,6 +14,9 @@ import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.io.IOException;
 
+//get mapping for load
+import org.springframework.web.bind.annotation.GetMapping;
+
 import com.chatriot.chat.model.ChatMessage;
 import com.chatriot.chat.repository.MessageRepository;
 import com.chatriot.chat.model.Classroom;
