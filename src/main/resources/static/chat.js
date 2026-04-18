@@ -40,8 +40,8 @@ function sendMessage() {
 //need a way to detect the id and decide which messages get shown to whom
 
 
-
-fetch("classes.json")
+// slash before file name helps avoid 404 errors
+fetch("/classes.json")
     .then(response => response.json())
     .then(data => {
         const container = document.getElementById("classroom-table-info");

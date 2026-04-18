@@ -71,7 +71,9 @@ public class ChatServer extends TextWebSocketHandler {
     //sets up the lists on startup
     @PostConstruct
     public void loadRooms() throws IOException {
-        File classroomFile = new File("src/main/resources/static/classes.json");
+        // only way this works with app.jar
+        InputStream is = getClass().getClassLoader().getResourceAsStream("static/classes.json");
+        File classroomFile = new File(is);
         //type reference portion signifies every item in json should be turned into Classroom
         //curly brackets makes nameless class that inherits from typereference (helps preserve Classroom type in list)
         classInfo = objectMapper.readValue(classroomFile, new TypeReference<List<Classroom>>() {} );
