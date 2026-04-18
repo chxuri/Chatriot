@@ -45,7 +45,7 @@ import org.springframework.stereotype.Component;
 //for time stamp formatting
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-@Component
+@Controller
 //makes it detect chatserver as a custom bean
 public class ChatServer extends TextWebSocketHandler {
 //parent is textwebsockethandler
