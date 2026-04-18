@@ -8,13 +8,31 @@
 </head>
 <body>
     
-    <div id="chat-container">
+    <div id="chat-container" style="display: none;">
         <h2 style = "font-size: 50px; color: #1b512d">Live Chat</h2>
 
         <div id="messages"></div>
         <div id="chat">
             <input id="messageInput" type="text" placeHolder="Type a message!" />
             <button type="button" class="button" onclick="sendMessage()">Send</button> 
+        </div>
+    </div>
+
+    <div id="waiting-room" style="display: block;">
+        <h1>Select your class:</h1>
+        <div class="classroom-list">
+            <p>Classroom buttons will go here</p>
+            <table id="classroom-table">
+                <tr>
+                    <th>Subject:</th>
+                    <th>Teacher:</th>
+                    <th>Period:</th>
+                    <th>Go To:</th>
+                </tr>
+                <tbody id="classroom-table-info">
+                    <!-- gets filled with js fetch func-->
+                </tbody>
+            </table>
         </div>
     </div>
 

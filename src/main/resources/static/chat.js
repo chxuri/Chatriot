@@ -5,7 +5,7 @@ socket.binaryType = "blob";
 //mvn spring-boot:run
 socket.onopen = () => {
     console.log("connected!");
-    document.getElementById("chat-container").style.display = "block";
+    //document.getElementById("chat-container").style.display = "block";
 };
 
 function sendMessage() {
