@@ -1,6 +1,9 @@
 package com.chatriot.chat.controller;
 //tells java where class is 
 
+//input stream import
+import java.io.InputStream;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 //imports hash map
