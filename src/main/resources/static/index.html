@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatriot - Login</title>
+</head>
+<body style="margin: 0; padding: 0; background: linear-gradient(135deg, #1e3a1e 0%, #2d5a2d 100%); font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+
+    <div style="background: white; display: flex; width: 850px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.4); min-height: 480px;">
+        
+        <div style="flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
+            <h2 style="margin: 0 0 20px 0; color: #333; font-size: 28px;">Login</h2>
+            
+            <form action="/login" method="post" style="display: flex; flex-direction: column; gap: 15px;">
+                <div style="text-align: left;">
+                    <label style="font-weight: 600; color: #666; font-size: 12px; letter-spacing: 1px;">USERNAME</label>
+                    <input type="text" placeholder="Enter Username" name="username" required 
+                        style="width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <div style="text-align: left;">
+                    <label style="font-weight: 600; color: #666; font-size: 12px; letter-spacing: 1px;">PASSWORD</label>
+                    <input type="password" placeholder="Enter Password" name="password" required 
+                        style="width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <button type="submit" style="background-color: #4CAF50; color: white; padding: 14px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                    Login
+                </button>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #888; margin-top: 10px;">
+                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="#" style="color: #4CAF50; text-decoration: none;">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; width: 60px; background-color: #fcfcfc;">
+            <div style="width: 1px; background: #eee; height: 70%;"></div>
+            <span style="background: white; padding: 10px 0; color: #bbb; font-weight: bold; font-size: 12px; position: absolute; border: 1px solid #eee; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">OR</span>
+        </div>
+
+        <div style="flex: 1; background-color: #f9f9f9; padding: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <h2 style="margin: 0 0 10px 0; color: #333;">Fast Login</h2>
+            <p style="color: #777; font-size: 14px; margin-bottom: 30px;">Sign in instantly with your Google account</p>
+            
+            <a href="/oauth2/authorization/google" style="text-decoration: none; width: 100%;">
+                <button type="button" style="background-color: white; color: #555; border: 1px solid #ddd; padding: 14px 20px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.2s;">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" style="width:18px; margin-right:12px;">
+                    Continue with Google
+                </button>
+            </a>
+            
+            <p style="margin-top: 50px; font-size: 13px; color: #999;">
+                Don't have an account? <a href="#" style="color: #4CAF50; text-decoration: none; font-weight: bold;">Sign Up</a>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
