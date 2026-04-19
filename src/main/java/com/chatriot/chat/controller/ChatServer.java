@@ -105,6 +105,7 @@ public class ChatServer extends TextWebSocketHandler {
                 String specialKey = c.getClassId() + "_" + period;
                 roomOccupants.put(specialKey, ConcurrentHashMap.newKeySet());
                 System.out.println("making key [" + specialKey + "]");
+                System.out.println("--- VERSION 2.0 CHECK ---");
             }
         }
         
