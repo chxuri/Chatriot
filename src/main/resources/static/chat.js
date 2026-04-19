@@ -1,10 +1,13 @@
+let currentClassId = ""; 
+let currentPeriod = "";
+let currentUserName = "Alice";
 const host = window.location.host;
-const protocol = window.location.protocol === "https:" ? "wss:" : "ws";
+const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
 const socket = new WebSocket(`${protocol}//${host}/chat`);
 socket.binaryType = "blob";
 //mvn spring-boot:run
 socket.onopen = () => {
-    console.log("connected!");
+    console.log("connected to " + socket.url);
     //document.getElementById("chat-container").style.display = "block";
 };
 
@@ -15,9 +18,10 @@ function sendMessage() {
     //const messageText = String(input.value);
     
     const messageText = {
-        sender: "Alice",
+        sender: currentUserName,
         content: input.value,
-        classId: "PreCalc_1"
+        classId: currentClassId,
+        period: currentPeriod
     };
     
     //if(messageText.trim() === "") return;
@@ -42,16 +46,21 @@ function sendMessage() {
 
 // slash before file name helps avoid 404 errors
 fetch("/classes.json")
+    //returns string of bytes
     .then(response => response.json())
+    //transforms the bytes into data
     .then(data => {
         const container = document.getElementById("classroom-table-info");
 
         //note to self: actually organize periods later since rn its getting sent to the same classID regardless of period
         data.forEach(classroom => {
-            const periodOptions = classroom.periods.map(p => `
-                <option value="${p}" ${p === classroom.period ? "selected" : ""}>Period ${p}</option>
+            //join part puts the periods into one html string
+            let periodOptions = `<option value="" disabled selected>Select Period</option>`;
+            periodOptions += classroom.periods.map(p => `
+                <option value="${p}">Period ${p}</option>
             `).join("");
 
+            //back ticks allow multi line html!
             const row = `
                 <tr>
                     <td>${classroom.subject}</td>
@@ -80,15 +89,25 @@ socket.onmessage = function(event) {
 
 function joinClass(classId) {
     const dropdown = document.getElementById(`period-${classId}`);
-    const selectedPeriod = dropdown.value;
+    currentPeriod = dropdown.value;
 
-    console.log(`Joining class: ${classId}, Period: ${selectedPeriod}`);
+    currentClassId = classId;
+    
+    if(!currentPeriod)
+    {
+        //makes sure they select a period and stops before sending to backend
+        alert("Select a period before joining!");
+        return;
+    }
+    console.log(`Joining class: ${classId}, Period: ${currentPeriod}`);
+
+
 
     const joinSignal = {
-        sender: "Alice",
+        sender: currentUserName,
         content: "joined class",
         classId: classId,
-        //period: selectedPeriod, // period from dropdown is now included
+        period: currentPeriod,
         type: "JOIN" 
     };
 
@@ -101,6 +120,7 @@ function joinClass(classId) {
     //socket.send(JSON.stringify(messageText));
 }
 
+/*
 socket.addEventListener("message", function(event) {
     //appends messages to chat box, both when sent and old messages
     console.log("inside event listener");
@@ -109,7 +129,9 @@ socket.addEventListener("message", function(event) {
     msg.textContent = event.data;
     messages.appendChild(msg);
 });
+*/
 
+/*
 socket.onclose("message", async (data) => {
     const newMessage = new MessageChannel({
         class_id: data.classId,
@@ -121,6 +143,8 @@ socket.onclose("message", async (data) => {
 
     io.to(data.classId).emit("broadcast", newMessage);
 });
+*/
+//who wrote this method ^^?  im so confused lol
 
 socket.onclose = () => {
     console.log("disconnected");

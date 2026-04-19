@@ -1,5 +1,5 @@
 [
-    {"subject":"Pre-Calc", "teacher":"Grover", "period":1, "classId":"PreCalc_1", "periods":[1,2,3]},
-    {"subject":"AP Bio", "teacher":"Wolfe", "period":3, "classId":"APBio_3", "periods":[3,4,5]},
-    {"subject":"Art and Design", "teacher":"Kim", "period":5, "classId":"ArtAndDesign_5", "periods":[5,6,7,8]}
+    {"subject":"Pre-Calc", "teacher":"Grover", "classId":"PreCalc", "periods":[1,2,3]},
+    {"subject":"AP Bio", "teacher":"Wolfe", "classId":"APBio", "periods":[3,4,5]},
+    {"subject":"Art and Design", "teacher":"Kim", "classId":"ArtAndDesign", "periods":[5,6,7,8]}
 ]

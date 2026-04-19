@@ -4,9 +4,13 @@ package com.chatriot.chat.model;
 import java.time.LocalDateTime;
 
 public class ChatMessage {
+    //handled by server
+    private String id;
+    //stuff i wrote
     private String sender;
     private String content;
     private String classId;
+    private String period;
     //timestamp!
     private LocalDateTime timestamp;
     private String type;
@@ -37,6 +41,16 @@ public class ChatMessage {
         return classId;
     }
 
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getPeriod()
+    {
+        return period;
+    }
+
     public String getType()
     {
         return type;
@@ -55,6 +69,16 @@ public class ChatMessage {
     public void setClassId(String cI)
     {
         classId = cI;
+    }
+
+    public void setPeriod(String p)
+    {
+        period = p;
+    }
+
+    public void setId(String i)
+    {
+        id = i;
     }
 
     public void setTimestamp(LocalDateTime t)

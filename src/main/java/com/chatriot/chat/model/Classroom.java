@@ -6,7 +6,7 @@ public class Classroom
 {
     private String subject;
     private String teacher;
-    private String period;
+    //private String period;
     private String classId;
     private List<Integer> periods;
 
@@ -33,10 +33,12 @@ public class Classroom
     {
         return teacher;
     }
+    /*
     public String getPeriod()
     {
         return period;
     }
+    */
     public String getClassId()
     {
         return classId;
@@ -55,10 +57,12 @@ public class Classroom
     {
         teacher = t;
     }
+    /*
     public void setPeriod(String p)
     {
         period = p;
     }
+    */
     public void setClassId(String c)
     {
         classId = c;

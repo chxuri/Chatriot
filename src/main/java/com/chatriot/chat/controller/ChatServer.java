@@ -54,12 +54,14 @@ public class ChatServer extends TextWebSocketHandler {
     //set of all connected users + polymorphism in the wild
     private final List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
+    //stores details of rooms with strings being classIds
     private final Map<String, Classroom> classInfoMap = new ConcurrentHashMap<>();
 
     //not final bc im reassigining it later
     private List<Classroom> classInfo = new ArrayList<Classroom>();
 
-    private final Map<String, List<WebSocketSession>> roomOccupants = new ConcurrentHashMap<>();
+    //collection of websocket sessions tied to classId
+    private Map<String, Set<WebSocketSession>> roomOccupants = new ConcurrentHashMap<>();
     
     //turns json into java objects
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -88,6 +90,7 @@ public class ChatServer extends TextWebSocketHandler {
     public void loadRooms() throws IOException {
         // only way this works with app.jar
         InputStream is = getClass().getClassLoader().getResourceAsStream("static/classes.json");
+        
         //type reference portion signifies every item in json should be turned into Classroom
         //curly brackets makes nameless class that inherits from typereference (helps preserve Classroom type in list)
         classInfo = objectMapper.readValue(is, new TypeReference<List<Classroom>>() {} );
@@ -95,8 +98,16 @@ public class ChatServer extends TextWebSocketHandler {
         for(Classroom c: classInfo)
         {
             classInfoMap.put(c.getClassId(), c);
-            roomOccupants.put(c.getClassId(), new CopyOnWriteArrayList<>());
+
+            //setting up rooms for potential students with specific keys
+            for(Integer period: c.getPeriods())
+            {
+                String specialKey = c.getClassId() + "_" + period;
+                roomOccupants.put(specialKey, ConcurrentHashMap.newKeySet());
+                System.out.println("making key [" + specialKey + "]");
+            }
         }
+        
     }
 
     //overriding method from parent class (FOR SAFETY CHECKING PURPOSES)
@@ -127,32 +138,40 @@ public class ChatServer extends TextWebSocketHandler {
         //objectMapper.readValue(source, targetType);
         ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
 
-        //saves to mongoDB
-        messageRepository.save(chatMessage); 
-
         //checks if its a join message
         if("JOIN".equals(chatMessage.getType()))
         {
             String room = chatMessage.getClassId();
+            String period = chatMessage.getPeriod();
             
-            if(roomOccupants.containsKey(room))
+            String specialKey = room + "_" + period;
+            System.out.println("DEBUG: join message[" + specialKey + "]");
+            if(roomOccupants.containsKey(specialKey))
             {
                 //gets the room list and adds the session there
                 //tags their session with the room label
-                roomOccupants.get(room).add(session);
+                roomOccupants.get(specialKey).add(session);
 
                 //sends back last 50 messages only for this room
-                List<ChatMessage> history = messageRepository.findTop50ByOrderByTimestampAsc(room);
-                session.sendMessage(new TextMessage(objectMapper.writeValueAsString(history)));
+                System.out.println("inside handle message");
+                List<ChatMessage> history = messageRepository.findTop50ByClassIdAndPeriodOrderByTimestampAsc(room, period);
+                for(ChatMessage m: history)
+                {
+                    session.sendMessage(new TextMessage(objectMapper.writeValueAsString(m)));
+                }
+                //session.sendMessage(new TextMessage(objectMapper.writeValueAsString(history)));
             }
         }
         else
         {   
+             //saves to mongoDB
+            messageRepository.save(chatMessage); 
+
             //sends message without getting the previous ones.
             broadcastToRoom(chatMessage);
         }
 
-
+        /*
         //System.out.println("Received: " + message.getPayload());
         for (WebSocketSession s: sessions) 
         {
@@ -161,18 +180,21 @@ public class ChatServer extends TextWebSocketHandler {
             {
                 //TextMessage wraps text so it can be sent
                 //writeValueAsString converts java object back to json
+                System.out.println("inside broadcaster");
                 s.sendMessage(new TextMessage(objectMapper.writeValueAsString(chatMessage)));
             }
         } 
+        */
     }
 
 
     //private method so only called thru other class
     private void broadcastToRoom(ChatMessage m) throws Exception
     {
-        String room = m.getClassId();
-
-        List<WebSocketSession> occupants = roomOccupants.get(room);
+        String specialKey = m.getClassId() + "_" + m.getPeriod();
+    
+        System.out.println("DEBUG: Searching for Key in broadcast: [" + specialKey + "]");
+        Set<WebSocketSession> occupants = roomOccupants.get(specialKey);
 
         for(WebSocketSession s: occupants)
         {
@@ -183,14 +205,20 @@ public class ChatServer extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-        sessions.remove(session);
+        
+        for(Set<WebSocketSession> occupants: roomOccupants.values())
+        {
+            occupants.remove(session);
+        }
+        //sessions.remove(session);
         System.out.println("User left. Total: " + sessions.size() + " | Reason: " + status.getReason());
     }
     
+    //closes session if error
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) {
         System.out.println("ERROR OCCURRED:");
         exception.printStackTrace();
     }
-    //closes session
+
 }
