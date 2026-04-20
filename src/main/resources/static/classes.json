@@ -11,7 +11,14 @@
     {"subject":"Physics 1", "teacher":"Gustin", "period":1, "classId":"Physics_2", "periods":[6,7,8]},
     {"subject":"Physics 1", "teacher":"Wilke", "period":1, "classId":"Physics_3", "periods":[6,7,8]},
     {"subject":"Physics 1", "teacher":"Fisk", "period":1, "classId":"Physics_4", "periods":[6,7,8]},
-    {"subject":"AP Bio", "teacher":"Wolfe", "period":3, "classId":"APBio_3", "periods":[3,4,5]},
-    {"subject":"Art and Design", "teacher":"Kim", "period":5, "classId":"ArtAndDesign_5", "periods":[5,6,7,8]}
+    {"subject":"AP Bio", "teacher":"Wolfe", "period":3, "classId":"APBio_1", "periods":[3,4,5]},
+    {"subject":"AP Bio", "teacher":"Palffy", "period":3, "classId":"APBio_2", "periods":[3,4,5]},
+    {"subject":"AP Bio", "teacher":"Brown", "period":3, "classId":"APBio_3", "periods":[3,4,5]},
+    {"subject":"AP Bio", "teacher":"Linnenburgur", "period":3, "classId":"APBio_4", "periods":[3,4,5]},
+    {"subject":"Art and Design", "teacher":"Kim", "period":5, "classId":"ArtAndDesign_1", "periods":[5,6,7,8]}
+    {"subject":"Freshman English Accel", "teacher":"Lockowitz", "period":5, "classId":"FreshmanEnglish_1", "periods":[5,6,7,8]}
+    {"subject":"Freshman English Accel", "teacher":"Flagannan", "period":5, "classId":"FreshmanEnglish_2", "periods":[5,6,7,8]}
+    {"subject":"Sophomore English Accel", "teacher":"Mack", "period":5, "classId":"ShophomoreEnglish_1", "periods":[5,6,7,8]}
+    {"subject":"Sophomore English Accel", "teacher":"Forde", "period":5, "classId":"SophomoreEnglish_2", "periods":[5,6,7,8]}
     
 ]
