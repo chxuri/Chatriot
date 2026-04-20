@@ -6,19 +6,18 @@
     <title>Welcome Home</title>
     <style>
         :root {
-            /* Cute Pastel Green Palette */
-            --soft-mint: #f2fff5;
-            --pastel-green: #d1fae5;
-            --deep-sage: #4ade80;
+            --soft-mint: #cee9d3;
+            --pastel-green: #e7f8ef;
+            --deep-sage: #56906b;
             --text-color: #2d4a3e;
             --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', cursive, sans-serif; /* Adds a softer feel */
+            font-family: Arial, Helvetica, sans-serif;
             background-color: var(--soft-mint);
-            background-image: radial-gradient(circle at 20% 20%, #e8f5e9 0%, transparent 25%),
-                              radial-gradient(circle at 80% 80%, #f0fdf4 0%, transparent 25%);
+            /* background-image: radial-gradient(circle at 20% 20%, #e8f5e9 0%, transparent 25%),
+                              radial-gradient(circle at 80% 80%, #f0fdf4 0%, transparent 25%); */
             color: var(--text-color);
             margin: 0;
             display: flex;
@@ -26,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* Top Bar with Logo to the Side */
         header {
             padding: 20px 40px;
             display: flex;
@@ -38,8 +36,8 @@
             background: var(--white);
             padding: 8px;
             border-radius: 20px;
-            border: 4px solid var(--white); /* White border requested */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 4px solid var(--white);
+            /* box-shadow: 0 4px 15px rgba(0,0,0,0.05); */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -47,16 +45,15 @@
         }
 
         .logo-box:hover {
-            transform: rotate(-3deg) scale(1.05);
+            /* transform: rotate(-3deg) scale(1.05); */
         }
 
         .logo-box img {
-            height: 60px; /* Smaller, more elegant size */
+            height: 60px; 
             width: auto;
             border-radius: 12px;
         }
 
-        /* Main Content */
         main {
             flex: 1;
             display: flex;
@@ -83,7 +80,6 @@
             font-weight: 700;
         }
 
-        /* Cute Card Grid */
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -95,10 +91,10 @@
         .card {
             background: var(--white);
             padding: 40px 20px;
-            border-radius: 30px; /* Extra rounded for cuteness */
+            border-radius: 30px; 
             text-decoration: none;
             color: inherit;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
             border: 2px solid transparent;
             box-shadow: 0 10px 20px rgba(0,0,0,0.03);
         }
@@ -145,14 +141,14 @@
         </div>
 
         <div class="card-container">
-            <a href="./src/main/resources/static/waiting-page.html" class="card">
+            <a href="start.html" class="card">
                 <h3>Waiting Room</h3>
             </a>
-            <a href="./src/main/resources/static/start.html" class="card">
+            <a href="about-us.html" class="card">
                 <h3>About us</h3>
                 <p>our story</p>
             </a>
-            <a href="./src/main/resources/static/start.html" class="card">
+            <a href="help.html" class="card">
                 <h3>Help page</h3>
                 <p>we're here for you</p>
             </a>
@@ -160,7 +156,7 @@
     </main>
 
     <footer>
-        handmade with love &bull; 2026
+        made by Team Chatriot :&#41
     </footer>
 
 </body>

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="live_chat_style.css">
+    <link rel="stylesheet" href="waiting_page_style.css">
     <title>first document</title>
 </head>
 <body>
     
     <div id="chat-container" style="display: none;">
-        <h2 style = "font-size: 50px; color: #1b512d">Live Chat</h2>
+        <h2 style = "font-size: 35px; color: #1b512d">Live Chat</h2>
 
         <div id="messages"></div>
         <div id="chat">
@@ -19,9 +19,11 @@
     </div>
 
     <div id="waiting-room" style="display: block;">
-        <h1>Select your class:</h1>
+        <div id="heading-box">
+            <h1>Select your class:</h1>
+            <p>Make sure to select a period!</p>
+        </div>
         <div class="classroom-list">
-            <p>Classroom buttons will go here</p>
             <table id="classroom-table">
                 <tr>
                     <th>Subject:</th>
@@ -36,7 +38,9 @@
         </div>
     </div>
 
-    
+    <footer>
+        made by Team Chatriot :&#41
+    </footer>
     
     <script src="chat.js"></script>
 </body>
