@@ -1,0 +1,41 @@
+package com.chatriot.chat.controller;  // change this to match your other controller files
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+public class ConfigController {
+
+    @Value("${firebase.apiKey}")
+    private String apiKey;
+
+    @Value("${firebase.authDomain}")
+    private String authDomain;
+
+    @Value("${firebase.projectId}")
+    private String projectId;
+
+    @Value("${firebase.storageBucket}")
+    private String storageBucket;
+
+    @Value("${firebase.messagingSenderId}")
+    private String messagingSenderId;
+
+    @Value("${firebase.appId}")
+    private String appId;
+
+    @GetMapping("/api/config")
+    public Map<String, String> getConfig() {
+        Map<String, String> config = new HashMap<>();
+        config.put("apiKey", apiKey);
+        config.put("authDomain", authDomain);
+        config.put("projectId", projectId);
+        config.put("storageBucket", storageBucket);
+        config.put("messagingSenderId", messagingSenderId);
+        config.put("appId", appId);
+        return config;
+    }
+}
