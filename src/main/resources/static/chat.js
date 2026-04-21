@@ -71,7 +71,7 @@ fetch("/classes.json")
                         </select>
                     </td>
                     <td>
-                        <button type="button" class="button" onclick="joinClass('${classroom.classId}')">Join</button>
+                        <button type="button" class="button" onclick="joinClass('${classroom.classId}', '${classroom.subject}')">Join</button>
                     </td>
                 </tr>
             `;
@@ -87,7 +87,8 @@ socket.onmessage = function(event) {
     console.log("inside onmessage");
 };
 
-function joinClass(classId) {
+function joinClass(classId, subject) {
+    const chatHeadName = document.getElementById("chat-head");
     const dropdown = document.getElementById(`period-${classId}`);
     currentPeriod = dropdown.value;
 
@@ -117,6 +118,7 @@ function joinClass(classId) {
     //switches ui
     document.getElementById("waiting-room").style.display = "none";
     document.getElementById("chat-container").style.display = "block";
+    chatHeadName.innerText = `Live Chat for ${subject} Period ${currentPeriod}!`;
     //socket.send(JSON.stringify(messageText));
 }
 

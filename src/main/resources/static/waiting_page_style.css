@@ -1,18 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
 
+/*global colors!*/
 :root {
-    --soft-mint: #f2fff5;
-    --pastel-green: #d1fae5;
-    --deep-sage: #4ade80;
+    --soft-mint: #cee9d3;
+    --class-color: #dbeee3;
+    --pastel-green: #e7f8ef;
+    --deep-sage: #5cc482;
     --text-color: #2d4a3e;
     --white: #ffffff;
 }
 
+
 body {
-    font-family: 'Segoe UI', cursive, sans-serif;
+    font-family: Arial, helvetica, sans-serif;
     background-color: var(--soft-mint);
-    background-image: radial-gradient(circle at 20% 20%, #e8f5e9 0%, transparent 25%),
-                      radial-gradient(circle at 80% 80%, #f0fdf4 0%, transparent 25%);
+    /* background-image: url('https://i.imgur.com/9kOz1KI.jpeg'); */
+    background-size: cover;
+    /* background-image: radial-gradient(circle at 20% 20%, #e8f5e9 0%, transparent 25%),
+                      radial-gradient(circle at 80% 80%, #f0fdf4 0%, transparent 25%); */
     color: var(--text-color);
     margin: 0;
     display: flex;
@@ -23,18 +27,89 @@ body {
     box-sizing: border-box;
 }
 
-h1 {
+#chat-head {
     font-size: 2rem;
-    font-weight: 300;
+    font-weight: 700;
     color: var(--text-color);
     margin-bottom: 30px;
+    text-align: left;
+    border-radius: 20px;
+    border: 2px solid var(--white);
+    padding: 20px 20px;
+    background-color: var(--white);
+}
+#heading-box {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-color);
+    margin-bottom: 20px;
     text-align: center;
+    border-radius: 20px;
+    border: 2px solid var(--white);
+    padding: 20px 20px;
+    background-color: var(--white);
 }
 
-h1 span {
+#heading-box span {
     color: var(--deep-sage);
-    font-weight: 700;
+    font-weight: 500;
 }
+
+#messages {
+    border-radius: 20px;
+    border: 2px solid var(--white);
+    padding: 20px 20px;
+    background-color: var(--white);
+    overflow-y: auto;
+    height: 500px; 
+    margin-bottom: 15px;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: left;
+  justify-content: left;
+  
+  padding: 35px; 
+  font-family: Arial, helvetica, sans-serif;
+  letter-spacing: 2px;
+}
+
+.chat {
+  display: flex;
+  
+ 
+}
+#chat input {
+  width: 1000px;    
+  height: 60px;
+  padding: 20px;
+  box-sizing: border-box; 
+  border-radius: 10px;
+  border-color: var(--deep-sage);
+}
+
+
+
+#messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+#messages::-webkit-scrollbar-track {
+    background-color: var(--soft-mint);
+    border-radius: 10px;
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background-color: var(--deep-sage);
+    border-radius: 10px;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-color);
+}
+
 
 th {
     font-size: clamp(1rem, 2vw, 1.3rem);
@@ -50,11 +125,11 @@ th {
     border: 2px solid var(--deep-sage);
     background-color: var(--white);
     color: var(--text-color);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
 }
 
 .button:hover {
@@ -70,7 +145,7 @@ select {
     border: 2px solid var(--deep-sage);
     border-radius: 20px;
     padding: 4px 10px;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 0.9rem;
     cursor: pointer;
     transition: border-color 0.2s ease;
@@ -88,8 +163,8 @@ select option {
 
 .classroom-list {
     width: 100%;
-    max-width: 900px;
-    height: clamp(50vh, 65vh, 700px);
+    max-width: 1200px;
+    height: clamp(50vh, 65vh, 600px);
     border: 2px solid transparent;
     border-radius: 30px;
     overflow-y: scroll;
@@ -98,7 +173,7 @@ select option {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    stroke-color: var(--text-color);
+    /* stroke-color: var(--text-color); */
 }
 
 .classroom-list p {
@@ -143,7 +218,7 @@ select option {
 }
 
 #classroom-table tbody tr {
-    background-color: var(--soft-mint);
+    background-color: var(--class-color);
     border-radius: 20px;
     transition: all 0.3s ease;
 }
@@ -169,7 +244,7 @@ footer {
     text-align: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
     .classroom-list {
         width: 95vw;
         height: 80vh;
