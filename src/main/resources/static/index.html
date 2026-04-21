@@ -125,6 +125,8 @@
             text-align: center;
         }
     </style>
+
+    
 </head>
 <body>
 
@@ -136,7 +138,8 @@
 
     <main>
         <div class="Welcome-msg">
-            <h1>Welcome, <span class="username">username</span> 
+            <!-- added id so JS can update it -->
+            <h1>Welcome, <span class="username" id="username-display">...</span></h1>
             <p>it's lovely to see you today.</p>
         </div>
 
@@ -156,8 +159,17 @@
     </main>
 
     <footer>
-        made by Team Chatriot :&#41
+        made by Team Chatriot :&#41;
     </footer>
 
+    <!-- add these two scripts at the bottom -->
+    <script type="module" src="auth.js"></script>
+    <script>
+        // displays the signed in user's name
+        const userName = sessionStorage.getItem("userName");
+        if (userName) {
+            document.getElementById("username-display").textContent = userName;
+        }
+    </script>
 </body>
 </html>

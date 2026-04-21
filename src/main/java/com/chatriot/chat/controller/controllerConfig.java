@@ -1,4 +1,4 @@
-package com.chatriot.chat.controller;  // change this to match your other controller files
+package com.yourapp;  // match your other controllers
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

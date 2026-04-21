@@ -1,6 +1,6 @@
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class uthController {
 
     @PostMapping("/verify")
     public ResponseEntity<Map<String, String>> verifyUser(@RequestBody Map<String, String> body) {
