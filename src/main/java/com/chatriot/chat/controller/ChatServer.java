@@ -1,6 +1,7 @@
 package com.chatriot.chat.controller;
 //tells java where class is 
 
+import java.time.LocalDateTime;
 //input stream import
 import java.io.InputStream;
 
@@ -165,6 +166,7 @@ public class ChatServer extends TextWebSocketHandler {
         }
         else
         {   
+            chatMessage.setTimestamp(LocalDateTime.now());
              //saves to mongoDB
             messageRepository.save(chatMessage); 
 
