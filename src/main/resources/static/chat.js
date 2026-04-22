@@ -78,11 +78,39 @@ fetch("/classes.json")
             container.innerHTML += row;
         });
     });
+
+function formatTimestamp(timestamp)
+{
+    if(!timestamp) return "";
+
+    const time = new Date(timestamp);
+    const now = new Date();
+    
+    if (time.toDateString() === now.toDateString())
+    {
+        return time.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+        });
+    }
+    else {
+        return time.toLocaleDateString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        }) + ", " + time.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+        });
+    }
+    
+}
 socket.onmessage = function(event) {
     const messages = document.getElementById("messages");
     const data = JSON.parse(event.data);
     const msg = document.createElement("div");
-    msg.textContent = `${data.sender}: ${data.content}`;
+    msg.textContent = `${formatTimestamp(data.timestamp)} ${data.sender}: ${data.content}`;
     messages.appendChild(msg);
     console.log("inside onmessage");
 };

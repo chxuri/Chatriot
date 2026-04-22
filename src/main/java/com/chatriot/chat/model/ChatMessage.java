@@ -2,6 +2,7 @@
 package com.chatriot.chat.model;
 //date & time library
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ChatMessage {
     //handled by server
@@ -12,6 +13,7 @@ public class ChatMessage {
     private String classId;
     private String period;
     //timestamp!
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timestamp;
     private String type;
 

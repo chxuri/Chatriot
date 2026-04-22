@@ -90,6 +90,17 @@ body {
   border-color: var(--deep-sage);
 }
 
+ 
+
+#chat input {
+  max-width: 1000px;    
+  height: 60px;
+  padding: 20px;
+  box-sizing: border-box; 
+  border-radius: 10px;
+  border-color: var(--deep-sage);
+}
+
 
 
 #messages::-webkit-scrollbar {
