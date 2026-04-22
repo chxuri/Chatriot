@@ -1,38 +1,27 @@
 import { auth, provider } from "./firebase-config.js";
 import { signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-window.onload = () => {
+const currentPage = window.location.pathname;
+
+// Only run sign-in logic on index.html
+if (currentPage === "/" || currentPage.includes("index.html")) {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Already signed in, go straight to waiting page
-            onSignedIn(user);
+            // Already signed in, go to waiting page
+            sessionStorage.setItem("userName", user.displayName);
+            sessionStorage.setItem("userEmail", user.email);
+            window.location.href = "waiting-page.html";
         } else {
-            // Not signed in, trigger Google popup
+            // Not signed in, show Google popup
             signInWithPopup(auth, provider)
                 .then((result) => {
-                    onSignedIn(result.user);
+                    sessionStorage.setItem("userName", result.user.displayName);
+                    sessionStorage.setItem("userEmail", result.user.email);
+                    window.location.href = "waiting-page.html";
                 })
                 .catch((error) => {
                     console.error("Sign in failed:", error.message);
                 });
         }
-    });
-};
-
-function onSignedIn(user) {
-    fetch("/api/auth/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        sessionStorage.setItem("userName", data.userName);
-        sessionStorage.setItem("userEmail", data.email);
-        window.location.href = "waiting-page.html";
     });
 }
