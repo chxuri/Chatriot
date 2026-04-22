@@ -1,6 +1,11 @@
+package com.chatriot.chat.controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import java.util.HashMap;
+import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
-public class uthController {
+public class authController {
 
     @PostMapping("/verify")
     public ResponseEntity<Map<String, String>> verifyUser(@RequestBody Map<String, String> body) {
