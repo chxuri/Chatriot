@@ -131,7 +131,7 @@ th {
 
 .button {
     height: 2.2rem;
-    width: 5rem;
+    width: auto;
     border-radius: 20px;
     border: 2px solid var(--deep-sage);
     background-color: var(--white);
@@ -266,4 +266,40 @@ footer {
     .button {
         width: 4rem;
     }
+}
+
+.logo-box img {
+    height: 55px;
+    width: 200px;
+    border-radius: 12px;
+    object-fit: cover; 
+    transition: transform 0.2s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.logo-box img:hover{
+    transform: scale(1.1);
+}
+
+.back-button 
+{
+    height: 2.2rem;
+    width: auto;
+    border-radius: 20px;
+    border: 2px solid var(--deep-sage);
+    background-color: var(--white);
+    color: var(--text-color);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.back-buton :hover
+{
+    background-color: var(--pastel-green);
+    border-color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(74, 222, 128, 0.2);
 }

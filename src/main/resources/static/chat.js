@@ -96,8 +96,8 @@ function formatTimestamp(timestamp)
     }
     else {
         return time.toLocaleDateString([], {
-            hour: "2-digit",
-            minute: "2-digit"
+            month: "short",
+            day: "numeric"
         }) + ", " + time.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
@@ -116,6 +116,7 @@ socket.onmessage = function(event) {
 };
 
 function joinClass(classId, subject) {
+    document.getElementById("messages").innerHTML = "";
     const chatHeadName = document.getElementById("chat-head");
     const dropdown = document.getElementById(`period-${classId}`);
     currentPeriod = dropdown.value;
@@ -148,6 +149,12 @@ function joinClass(classId, subject) {
     document.getElementById("chat-container").style.display = "block";
     chatHeadName.innerText = `Live Chat for ${subject} Period ${currentPeriod}!`;
     //socket.send(JSON.stringify(messageText));
+}
+
+function backToWaitingPage()
+{
+    document.getElementById("waiting-room").style.display = "block";
+    document.getElementById("chat-container").style.display = "none";
 }
 
 /*
