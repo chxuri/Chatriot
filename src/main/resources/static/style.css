@@ -122,8 +122,10 @@ input {
 }
 
 .logo-box img {
-    height: 110px;
-    width: auto;
+    height: 55px;
+    width: 200px;
     border-radius: 12px;
+    object-fit: cover; 
 }
+
 /* styles https://imgur.com/a/XP40o4q */
