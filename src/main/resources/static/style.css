@@ -114,7 +114,7 @@ input {
 .logo-box {
     padding: 8px;
     border-radius: 20px;
-    border: 4px solid var(--white);
+    /* border: 4px solid var(--white); */
     display: flex;
     align-items: center;
     justify-content: center;
