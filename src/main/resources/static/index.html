@@ -97,9 +97,16 @@
                     sessionStorage.setItem("userEmail", result.user.email);
                     document.getElementById("username-display").textContent = result.user.displayName;
                     document.getElementById("sign-in-btn").style.display = "none";
+
+                    
+                    window.location.href = "src/main/resources/static/start.html";
+                    
+                
                 })
                 .catch((error) => {
                     console.error("Sign in failed:", error.message);
+                    console.error("Full Error Object:", error); // This will give us a "Reason Code"
+                    console.log("Error Code:", error.code);
                 });
         };
     </script>

@@ -10,18 +10,22 @@ if (currentPage === "/" || currentPage.includes("index.html")) {
             // Already signed in, go to waiting page
             sessionStorage.setItem("userName", user.displayName);
             sessionStorage.setItem("userEmail", user.email);
-            window.location.href = "waiting-page.html";
-        } else {
+
+            //this is so theres no redirect loop
+            if (window.location.pathname.includes("index.html") || window.location.pathname === "/") {
+                window.location.href = "src/main/resources/static/start.html";
+            }
+        } else{
             // Not signed in, show Google popup
             signInWithPopup(auth, provider)
                 .then((result) => {
                     sessionStorage.setItem("userName", result.user.displayName);
                     sessionStorage.setItem("userEmail", result.user.email);
-                    window.location.href = "waiting-page.html";
+                    window.location.href = "src/main/resources/static/start.html";
                 })
                 .catch((error) => {
                     console.error("Sign in failed:", error.message);
                 });
-        }
+            }
     });
 }

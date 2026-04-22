@@ -53,18 +53,19 @@
     <script src="chat.js"></script>
 </body>
 <script type="module">
-    import { auth } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            // Not signed in, send back to login
-            window.location.href = "index.html";
-        } else {
-            // Update username display if it exists
-            const display = document.getElementById("username-display");
-            if (display) display.textContent = user.displayName;
-        }
-    });
+    // import { auth } from "./firebase-config.js";
+    // import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+    // onAuthStateChanged(auth, (user) => {
+    //     if (!user) {
+    //         // Not signed in, send back to login
+    //         window.location.href = "index.html";
+    //     } else {
+    //          // Update username display if it exists
+    //         const display = document.getElementById("username-display");
+    //         if (display) display.textContent = user.displayName;
+    //     }
+    // });
 </script>
 </html>
