@@ -4,63 +4,322 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatriot - Login</title>
+    <style>
+        :root {
+            --soft-mint: #cee9d3;
+            --pastel-green: #e7f8ef;
+            --deep-sage: #56906b;
+            --text-color: #2d4a3e;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #1e3a1e 0%, #2d5a2d 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            display: flex;
+            width: 850px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            min-height: 480px;
+        }
+
+        /* LEFT SIDE - username/password */
+        .left-panel {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-panel h2 {
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 28px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #666;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--deep-sage);
+        }
+
+        .login-btn {
+            background-color: var(--deep-sage);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--text-color);
+            transform: translateY(-2px);
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #888;
+            margin-top: 15px;
+        }
+
+        .form-footer a {
+            color: var(--deep-sage);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* DIVIDER */
+        .divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 60px;
+            background-color: #fcfcfc;
+        }
+
+        .divider-line {
+            width: 1px;
+            background: #eee;
+            height: 70%;
+        }
+
+        .divider-or {
+            background: white;
+            padding: 10px 0;
+            color: #bbb;
+            font-weight: bold;
+            font-size: 12px;
+            position: absolute;
+            border: 1px solid #eee;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* RIGHT SIDE - Google sign in */
+        .right-panel {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .right-panel h2 {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .right-panel p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .google-btn {
+            background-color: white;
+            color: #555;
+            border: 1px solid #ddd;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-weight: 600;
+            font-size: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .google-btn:hover {
+            background-color: var(--pastel-green);
+            border-color: var(--deep-sage);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 222, 128, 0.2);
+        }
+
+        .google-btn img {
+            width: 18px;
+            margin-right: 12px;
+        }
+
+        .signup-text {
+            margin-top: 50px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .signup-text a {
+            color: var(--deep-sage);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* error message */
+        #error-msg {
+            color: red;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; background: linear-gradient(135deg, #1e3a1e 0%, #2d5a2d 100%); font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+<body>
 
-    <div style="background: white; display: flex; width: 850px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.4); min-height: 480px;">
-        
-        <div style="flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
-            <h2 style="margin: 0 0 20px 0; color: #333; font-size: 28px;">Login</h2>
-            
-            <form action="/login" method="post" style="display: flex; flex-direction: column; gap: 15px;">
-                <div style="text-align: left;">
-                    <label style="font-weight: 600; color: #666; font-size: 12px; letter-spacing: 1px;">USERNAME</label>
-                    <input type="text" placeholder="Enter Username" name="username" required 
-                        style="width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; outline: none;">
+    <div class="login-box">
+
+        <!-- LEFT: username/password -->
+        <div class="left-panel">
+            <h2>Login</h2>
+            <div class="form-group">
+                <div>
+                    <label>USERNAME</label>
+                    <input type="text" id="username-input" placeholder="Enter Username">
                 </div>
-
-                <div style="text-align: left;">
-                    <label style="font-weight: 600; color: #666; font-size: 12px; letter-spacing: 1px;">PASSWORD</label>
-                    <input type="password" placeholder="Enter Password" name="password" required 
-                        style="width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; outline: none;">
+                <div>
+                    <label>PASSWORD</label>
+                    <input type="password" id="password-input" placeholder="Enter Password">
                 </div>
-
-                <button type="submit" style="background-color: #4CAF50; color: white; padding: 14px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px;">
-                    Login
-                </button>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #888; margin-top: 10px;">
+                <button class="login-btn" onclick="handleUsernameLogin()">Login</button>
+                <p id="error-msg">Invalid username or password.</p>
+                <div class="form-footer">
                     <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                         <input type="checkbox" name="remember"> Remember me
                     </label>
-                    <a href="#" style="color: #4CAF50; text-decoration: none;">Forgot password?</a>
+                    <a href="#">Forgot password?</a>
                 </div>
-            </form>
+            </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; width: 60px; background-color: #fcfcfc;">
-            <div style="width: 1px; background: #eee; height: 70%;"></div>
-            <span style="background: white; padding: 10px 0; color: #bbb; font-weight: bold; font-size: 12px; position: absolute; border: 1px solid #eee; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">OR</span>
+        <!-- DIVIDER -->
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-or">OR</span>
         </div>
 
-        <div style="flex: 1; background-color: #f9f9f9; padding: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-            <h2 style="margin: 0 0 10px 0; color: #333;">Fast Login</h2>
-            <p style="color: #777; font-size: 14px; margin-bottom: 30px;">Sign in instantly with your Google account</p>
-            
-            <a href="/oauth2/authorization/google" style="text-decoration: none; width: 100%;">
-                <button type="button" style="background-color: white; color: #555; border: 1px solid #ddd; padding: 14px 20px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.2s;">
-                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" style="width:18px; margin-right:12px;">
-                    Continue with Google
-                </button>
-            </a>
-            
-            <p style="margin-top: 50px; font-size: 13px; color: #999;">
-                Don't have an account? <a href="#" style="color: #4CAF50; text-decoration: none; font-weight: bold;">Sign Up</a>
+        <!-- RIGHT: Google sign in -->
+        <div class="right-panel">
+            <h2>Fast Login</h2>
+            <p>Sign in instantly with your Google account</p>
+
+            <button class="google-btn" onclick="handleGoogleSignIn()">
+                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
+                Continue with Google
+            </button>
+
+            <p class="signup-text">
+                Don't have an account? <a href="#">Sign Up</a>
             </p>
         </div>
 
     </div>
 
+    <script type="module">
+        import { auth, provider } from "./firebase-config.js";
+        import { signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+        // If already signed in, skip login page
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                sessionStorage.setItem("userName", user.displayName);
+                sessionStorage.setItem("userEmail", user.email);
+                window.location.href = "index.html";
+            }
+        });
+
+        // Google sign in
+        window.handleGoogleSignIn = function() {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    sessionStorage.setItem("userName", result.user.displayName);
+                    sessionStorage.setItem("userEmail", result.user.email);
+                    window.location.href = "index.html";
+                })
+                .catch((error) => {
+                    console.error("Google sign in failed:", error.message);
+                });
+        };
+
+        // Username/password login — connects to Spring Boot backend
+        window.handleUsernameLogin = function() {
+            const username = document.getElementById("username-input").value;
+            const password = document.getElementById("password-input").value;
+
+            fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "success") {
+                    sessionStorage.setItem("userName", data.userName);
+                    window.location.href = "index.html";
+                } else {
+                    document.getElementById("error-msg").style.display = "block";
+                }
+            })
+            .catch(() => {
+                document.getElementById("error-msg").style.display = "block";
+            });
+        };
+    </script>
+
 </body>
 </html>
-

@@ -6,35 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Welcome Home</title>
     <style>
-        :root {
-            --soft-mint: #cee9d3;
-            --pastel-green: #e7f8ef;
-            --deep-sage: #56906b;
-            --text-color: #2d4a3e;
-            --white: #ffffff;
-        }
-
-        #sign-in-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
-            background-color: var(--white);
-            color: var(--text-color);
-            border: 2px solid var(--deep-sage);
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 20px auto;
-        }
-
-        #sign-in-btn:hover {
-            background-color: var(--pastel-green);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(74, 222, 128, 0.2);
-        }
+        
     </style>
 </head>
 <body>
@@ -51,9 +23,7 @@
         <div class="Welcome-msg">
             <h1>Welcome, <span class="username" id="username-display">student</span></h1>
             <p>time to get some help with class work!</p>
-            <button id="sign-in-btn" onclick="handleSignIn()">
-                Sign in with Google
-            </button>
+            
         </div>
 
         <div class="card-container">
@@ -75,41 +45,6 @@
         made by Team Chatriot :&#41;
     </footer>
 
-    <script type="module">
-        import { auth, provider } from "./firebase-config.js";
-        import { signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-
-        // If already signed in, skip login page and hide button
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById("username-display").textContent = user.displayName;
-                document.getElementById("sign-in-btn").style.display = "none";
-                sessionStorage.setItem("userName", user.displayName);
-                sessionStorage.setItem("userEmail", user.email);
-            }
-        });
-
-        // Attach to window so the button onclick can call it
-        window.handleSignIn = function() {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    sessionStorage.setItem("userName", result.user.displayName);
-                    sessionStorage.setItem("userEmail", result.user.email);
-                    document.getElementById("username-display").textContent = result.user.displayName;
-                    document.getElementById("sign-in-btn").style.display = "none";
-
-                    
-                    window.location.href = "src/main/resources/static/start.html";
-                    
-                
-                })
-                .catch((error) => {
-                    console.error("Sign in failed:", error.message);
-                    console.error("Full Error Object:", error); // This will give us a "Reason Code"
-                    console.log("Error Code:", error.code);
-                });
-        };
-    </script>
-
+    
 </body>
 </html>
