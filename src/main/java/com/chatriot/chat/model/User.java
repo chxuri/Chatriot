@@ -1,4 +1,4 @@
-package com.Chatriot.chat.model;
+package com.chatriot.chat.model;
 
 public class User {
     private String username;

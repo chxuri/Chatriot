@@ -34,6 +34,15 @@ function sendMessage() {
 
 };
 
+const input = document.getElementById("enterButton");
+
+input.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    //makes sure enter key doesnt trigger anything else
+    event.preventDefault();
+    document.getElementById("enterButton").click();
+  }
+});
 
 
 

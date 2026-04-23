@@ -22,7 +22,9 @@
         <div id="messages"></div>
         <div id="chat">
             <input id="messageInput" type="text" placeHolder="Type a message!" />
-            <button type="button" class="button" onclick="sendMessage()">Send</button> 
+            <div id="enterButton">
+                <button type="button" class="button" onclick="sendMessage()">Send</button> 
+            </div>
         </div>
     </div>
 
@@ -54,18 +56,18 @@
 </body>
 <script type="module">
 
-    import { auth } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+    // import { auth } from "./firebase-config.js";
+    // import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            // Not signed in, send back to login
-            window.location.href = "index.html";
-        } else {
-             // Update username display if it exists
-            const display = document.getElementById("username-display");
-            if (display) display.textContent = user.displayName;
-        }
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //     if (!user) {
+    //         // Not signed in, send back to login
+    //         window.location.href = "index.html";
+    //     } else {
+    //          // Update username display if it exists
+    //         const display = document.getElementById("username-display");
+    //         if (display) display.textContent = user.displayName;
+    //     }
+    // });
 </script>
 </html>
