@@ -1,4 +1,13 @@
-/*not in use currently*/
+
+:root {
+    --soft-mint: #cee9d3;
+    --class-color: #dbeee3;
+    --pastel-green: #e7f8ef;
+    --deep-sage: #5cc482;
+    --text-color: #2d4a3e;
+    --white: #ffffff;
+}
+
 body {
     display: flex;
     flex-direction: column; 

@@ -103,7 +103,7 @@ public class ChatServer extends TextWebSocketHandler {
             //setting up rooms for potential students with specific keys
             for(Integer period: c.getPeriods())
             {
-                String specialKey = c.getClassId() + "_" + period;
+                String specialKey = c.getClassId() + "_" + period + "_" + c.getTeacher();
                 roomOccupants.put(specialKey, ConcurrentHashMap.newKeySet());
                 System.out.println("making key [" + specialKey + "]");
                 System.out.println("--- VERSION 2.0 CHECK ---");
@@ -146,7 +146,7 @@ public class ChatServer extends TextWebSocketHandler {
             String room = chatMessage.getClassId();
             String period = chatMessage.getPeriod();
             
-            String specialKey = room + "_" + period;
+            String specialKey = room + "_" + period + "_" + chatMessage.getTeacher();
             System.out.println("DEBUG: join message[" + specialKey + "]");
             if(roomOccupants.containsKey(specialKey))
             {
@@ -156,7 +156,7 @@ public class ChatServer extends TextWebSocketHandler {
 
                 //sends back last 50 messages only for this room
                 System.out.println("inside handle message");
-                List<ChatMessage> history = messageRepository.findTop50ByClassIdAndPeriodOrderByTimestampAsc(room, period);
+                List<ChatMessage> history = messageRepository.findTop50ByClassIdAndPeriodOrderByTimestampAsc(room, period, chatMessage.getTeacher());
                 for(ChatMessage m: history)
                 {
                     session.sendMessage(new TextMessage(objectMapper.writeValueAsString(m)));
@@ -194,7 +194,7 @@ public class ChatServer extends TextWebSocketHandler {
     //private method so only called thru other class
     private void broadcastToRoom(ChatMessage m) throws Exception
     {
-        String specialKey = m.getClassId() + "_" + m.getPeriod();
+        String specialKey = m.getClassId() + "_" + m.getPeriod() + "_" + m.getTeacher();
     
         System.out.println("DEBUG: Searching for Key in broadcast: [" + specialKey + "]");
         Set<WebSocketSession> occupants = roomOccupants.get(specialKey);

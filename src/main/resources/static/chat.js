@@ -1,6 +1,7 @@
 let currentClassId = ""; 
 let currentPeriod = "";
 let currentUserName = "Alice";
+let currentTeacher = "";
 const host = window.location.host;
 const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
 const socket = new WebSocket(`${protocol}//${host}/chat`);
@@ -21,7 +22,8 @@ function sendMessage() {
         sender: currentUserName,
         content: input.value,
         classId: currentClassId,
-        period: currentPeriod
+        period: currentPeriod,
+        teacher: currentTeacher
     };
     
     //if(messageText.trim() === "") return;
@@ -34,13 +36,13 @@ function sendMessage() {
 
 };
 
-const input = document.getElementById("enterButton");
+const input = document.getElementById("messageInput");
 
 input.addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     //makes sure enter key doesnt trigger anything else
     event.preventDefault();
-    document.getElementById("enterButton").click();
+    sendMessage();
   }
 });
 
@@ -80,20 +82,12 @@ fetch("/classes.json")
                         </select>
                     </td>
                     <td>
-                        <button type="button" class="button" onclick="joinClass('${classroom.classId}', '${classroom.subject}')">Join</button>
+                        <button type="button" class="button" onclick="joinClass('${classroom.classId}', '${classroom.subject}', '${classroom.teacher}')">Join</button>
                     </td>
                 </tr>
             `;
             container.innerHTML += row;
         });
-
-        //timeout makes sure messages have loaded
-        setTimeout(() => {
-                const lastMessage = messageArea.lastElementChild;
-                if (lastMessage) {
-                    lastMessage.scrollIntoView({ behavior: 'smooth' });
-                }
-        }, 50);
     });
 
 function formatTimestamp(timestamp)
@@ -131,14 +125,23 @@ socket.onmessage = function(event) {
     msg.textContent = `${formatTimestamp(data.timestamp)} ${data.sender}: ${data.content}`;
     messages.appendChild(msg);
     console.log("inside onmessage");
-    messageArea.scrollTop = messageArea.scrollHeight;
+
+    //timeout makes sure messages have loaded
+        setTimeout(() => {
+                const lastMessage = messages.lastElementChild;
+                if (lastMessage) {
+                    lastMessage.scrollIntoView({ behavior: "auto" });
+                }
+        }, 10);
+    // messageArea.scrollTop = messageArea.scrollHeight;
 };
 
-function joinClass(classId, subject) {
+function joinClass(classId, subject, teacher) {
     document.getElementById("messages").innerHTML = "";
     const chatHeadName = document.getElementById("chat-head");
     const dropdown = document.getElementById(`period-${classId}`);
     currentPeriod = dropdown.value;
+    currentTeacher = teacher;
 
     currentClassId = classId;
     
@@ -148,7 +151,7 @@ function joinClass(classId, subject) {
         alert("Select a period before joining!");
         return;
     }
-    console.log(`Joining class: ${classId}, Period: ${currentPeriod}`);
+    console.log(`Joining class: ${classId}, Period: ${currentPeriod}, Teacher: ${teacher}`);
 
 
 
@@ -157,6 +160,7 @@ function joinClass(classId, subject) {
         content: "joined class",
         classId: classId,
         period: currentPeriod,
+        teacher: currentTeacher,
         type: "JOIN" 
     };
 
@@ -166,7 +170,7 @@ function joinClass(classId, subject) {
     //switches ui
     document.getElementById("waiting-room").style.display = "none";
     document.getElementById("chat-container").style.display = "block";
-    chatHeadName.innerText = `Live Chat for ${subject} Period ${currentPeriod}!`;
+    chatHeadName.innerText = `Live Chat for ${subject} (${teacher}) Period ${currentPeriod}!`;
     //socket.send(JSON.stringify(messageText));
 }
 

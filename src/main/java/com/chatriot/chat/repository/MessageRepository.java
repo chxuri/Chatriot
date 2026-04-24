@@ -11,10 +11,10 @@ public interface MessageRepository extends MongoRepository<ChatMessage, String>
 {
     //<ChatMessage, String> -> stores chatMessage objects with IDs that are Strings
     //finds by class period
-    List<ChatMessage> findByClassIdAndPeriod(String classId, String period);
+    List<ChatMessage> findByClassIdAndPeriod(String classId, String period, String teacher);
     //finds the top messages by derived query methods
     //scans name of method and parses it to make db query
-    List<ChatMessage> findTop50ByClassIdAndPeriodOrderByTimestampAsc(String classId, String period);
+    List<ChatMessage> findTop50ByClassIdAndPeriodOrderByTimestampAsc(String classId, String period, String teacher);
 
     //List<ChatMessage> findByClassIdOrderByTimestampAsc(String classId);
 }

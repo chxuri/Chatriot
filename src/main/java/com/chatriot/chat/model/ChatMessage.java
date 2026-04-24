@@ -12,6 +12,7 @@ public class ChatMessage {
     private String content;
     private String classId;
     private String period;
+    private String teacher;
     //timestamp!
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timestamp;
@@ -58,6 +59,11 @@ public class ChatMessage {
         return type;
     }
 
+    public String getTeacher()
+    {
+        return teacher;
+    }
+
     public void setSender(String s)
     {
         sender = s;
@@ -76,6 +82,11 @@ public class ChatMessage {
     public void setPeriod(String p)
     {
         period = p;
+    }
+
+    public void setTeacher(String t)
+    {
+        teacher = t;
     }
 
     public void setId(String i)
