@@ -86,6 +86,14 @@ fetch("/classes.json")
             `;
             container.innerHTML += row;
         });
+
+        //timeout makes sure messages have loaded
+        setTimeout(() => {
+                const lastMessage = messageArea.lastElementChild;
+                if (lastMessage) {
+                    lastMessage.scrollIntoView({ behavior: 'smooth' });
+                }
+        }, 50);
     });
 
 function formatTimestamp(timestamp)
@@ -119,9 +127,11 @@ socket.onmessage = function(event) {
     const messages = document.getElementById("messages");
     const data = JSON.parse(event.data);
     const msg = document.createElement("div");
+    msg.className = "single-message";
     msg.textContent = `${formatTimestamp(data.timestamp)} ${data.sender}: ${data.content}`;
     messages.appendChild(msg);
     console.log("inside onmessage");
+    messageArea.scrollTop = messageArea.scrollHeight;
 };
 
 function joinClass(classId, subject) {
